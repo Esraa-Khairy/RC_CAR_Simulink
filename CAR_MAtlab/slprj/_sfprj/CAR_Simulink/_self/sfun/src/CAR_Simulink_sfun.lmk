@@ -1,0 +1,26 @@
+CC     = "C:\Program Files\MATLAB\R2016a\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "C:\Program Files\MATLAB\R2016a\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "C:\Program Files\MATLAB\R2016a\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -DMX_COMPAT_32 -nodeclspec 
+LDFLAGS = -s -dll -L"C:\Program Files\MATLAB\R2016a\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"CAR_Simulink_sfun.obj"\
+	"c3_CAR_Simulink.obj"\
+	"CAR_Simulink_sfun_registry.obj"\
+	"lccstub.obj"\
+
+INCLUDE_PATH= -I"C:\Program Files\MATLAB\R2016a\sys\lcc64\lcc64\include64"  -I"C:\Program Files\MATLAB\R2016a\extern\include"  -I"C:\Program Files\MATLAB\R2016a\simulink\include"  -I"C:\Program Files\MATLAB\R2016a\simulink\include\sf_runtime"  -I"C:\Program Files\MATLAB\R2016a\stateflow\c\mex\include"  -I"C:\Program Files\MATLAB\R2016a\rtw\c\src"  -I"D:\ECU\Intro_Autoronics\Tuturials\CAR_MAtlab\slprj\_sfprj\CAR_Simulink\_self\sfun\src" 
+ 
+
+CAR_Simulink_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o CAR_Simulink_sfun.mexw64 @CAR_Simulink_sfun.lmko
+CAR_Simulink_sfun.obj :	"CAR_Simulink_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "CAR_Simulink_sfun.c"
+c3_CAR_Simulink.obj :	"c3_CAR_Simulink.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c3_CAR_Simulink.c"
+CAR_Simulink_sfun_registry.obj :	"CAR_Simulink_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "CAR_Simulink_sfun_registry.c"
+lccstub.obj :	"C:\Program Files\MATLAB\R2016a\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2016a\sys\lcc64\lcc64\mex\lccstub.c"
